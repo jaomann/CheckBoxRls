@@ -1,0 +1,46 @@
+﻿@model NoteViewModel;
+<div class="bg-light p-5">
+    <div class="container-index">
+        <div style="margin-top:-10vh;border-radius:100px;background-image: linear-gradient(#fff,#b5b5b5c2); width:150vh;box-shadow: rgb(255, 255, 255, 0,24) 0px 3px 8px;"
+             class="login-card">
+            <div class="row m-2">
+                <div class="col-md-12 text-center">
+                    <h1>Altere uma ideia existente.</h1>
+                </div>
+            </div>
+            <div style="width:100vh" class="itens">
+                <form method="post" asp-action="Editar">
+                    <div class="row mt-2">
+                        <div class="col-md-12 text-white font-weight-bold">
+                            <p>Mude o nome da sua Note</p>
+                            @{
+                                var userid = (Guid)TempData["user_id"];
+                                var id = (Guid)TempData["note_id"];
+                                @Html.TextBoxFor(x => x.UserId, new{value = userid, hidden = true})
+                                @Html.TextBoxFor(x => x.Born, new{value = DateTime.Now, hidden = true})
+                                @Html.TextBoxFor(x => x.Id, new{value = id, hidden = true})
+                            }
+
+                            @Html.TextBoxFor(x => x.Name, new{Placeholder="Nome", @class="form-control"})
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12 text-white font-weight-bold">
+                            <p>Agora o conteudo</p>
+                            @Html.TextAreaFor(x => x.Content, new{Placeholder="Conteudo", @class="form-control"})
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <button type="submit" asp-route-userid="@userid" class="btn btn-outline-warning mt-2">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

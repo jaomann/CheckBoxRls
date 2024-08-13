@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Your notes";
+    var notes = (IEnumerable<NoteViewModel>)ViewBag.Notes;
+    var user = (UserViewModel)ViewData["user"];
+    Layout = "_LoggedLayout";
+    
+}
+<div style="border-bottom-right-radius:25px;" class="pl-3 bg-transparent container-fluid">
+    <header class="ml-1 justify-content-between text-white mt-1" style="display:flex">
+        <div class="col-md-10 d-inline-flex">
+            <h2 class="text-light">Olá</h2><h2 class="text-warning ml-2">@user.Name @user.Surname</h2>
+        </div>
+        <a class="pt-2 btn btn-outline-danger text-sm-center" href="/api/auth/logout">Logout</a>
+    </header>
+    <main class="container-fluid" style="background-color:#202020;" class="rounded">
+        <div class="row d-flex m-1 justify-content-initial">
+            <h2 class="m-2 text-white-50">Suas notes</h2>
+        </div>
+        @{
+            if (notes.Any())
+            {
+                foreach (var note in notes)
+                {
+
+                    var parametros = new Tuple<NoteViewModel, Guid>(note, note.User.Id);
+                    <partial name="_note" model=@parametros></partial>
+                }
+            }
+            else
+            {
+                <div class="row text-center text-light mt-2">
+                    <div class="col-md-12 mt-3 mb-5">
+                            <img style="height:20vh;" src="~/imgs/nerd.gif" alt="empty">
+                            <h5>Sem anotações por aqui...</h5>
+                    </div>
+                </div>
+            }
+        }
+        <div class="row m-2">
+            <a class="pt-2 btn btn-outline-warning m-1" asp-action="Create" asp-route-id="@user.Id">Create</a>
+        </div>
+    </main>
+</div>
+    

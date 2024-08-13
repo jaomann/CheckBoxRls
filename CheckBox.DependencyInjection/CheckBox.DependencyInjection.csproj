@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CheckBox.Core\CheckBox.Core.csproj" />
+    <ProjectReference Include="..\CheckBox.Data\CheckBox.Data.csproj" />
+    <ProjectReference Include="..\CheckBox.Services\CheckBox.Services.csproj" />
+  </ItemGroup>
+
+</Project>

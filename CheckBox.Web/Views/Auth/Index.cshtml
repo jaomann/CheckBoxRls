@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="container-index">
+    <div style="border-radius:100px;background-image:linear-gradient(#ffe671,#ffa543)"
+         class="login-card">
+
+        <div style="display:flex; margin-top:15px; justify-content:initial; margin-bottom:-20px;" id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active text-center">
+                    <h4 class="d-block w-100">Armazene ideias</h4>
+                </div>
+                <div class="carousel-item text-center">
+                    <h4 class="d-block w-100">Seja mais produtivo</h4>
+                </div>
+                <div class="carousel-item text-center">
+                    <h4 class="d-block w-100">Se organize da melhor forma</h4>
+                </div>
+            </div>
+        </div>
+        <div class="Brand" style="display: flex; margin-top: 15px;justify-content: end;margin-right: 90px; margin-bottom: -30px;">
+            <img src="~/imgs/CheckLogo.png" width="10%" />
+            <h2>Check</h2><h2 class="text-light">Box</h2>
+        </div>
+        <div class="itens">
+            <div class="form-group">
+                <h5 class="text-white">Login</h5>
+                <input type="email" placeholder = "Insira seu email" class="form-control mt-2 userEmailLogin" required/>
+                <input type="password" placeholder="Insira seu email" class="form-control mt-2 userPasswordLogin" required />
+                <button class="btn btn-warning text-dark mt-3" onclick="login()">Entrar</button>
+                <div class="row mt-2 text-white">
+                    <div class="col-md-12">
+                        <p>Ainda não tem conta? <a class="text-white font-weight-bold" data-toggle="modal" data-target="#register"> Clica aqui</a></p>
+                    </div>
+                </div>
+            </div>
+            <partial name="_register" />
+        </div>
+    </div>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

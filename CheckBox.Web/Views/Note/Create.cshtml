@@ -1,0 +1,48 @@
+﻿@model NoteViewModel;
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div style="background-color:black;" class="p-5">
+<div class="container-index">
+        <div style="margin-top:-10vh;border-radius:100px; width:150vh;box-shadow: rgb(255, 255, 255, 0,24) 0px 3px 8px;"
+         class="login-card bg-dark">
+            <div class="row m-2">
+                <div class="col-md-12 text-center text-warning">
+                    <h1>Adicione ideias novas!</h1>
+                </div>
+            </div>
+        <div style="width:100vh" class="itens">
+            <form method="post" asp-action="Create">
+                <div class="row mt-2">
+                    <div class="col-md-12 text-white font-weight-bold">
+                        <p>De um nome a sua Note.</p>
+                        @{
+                            var userid = (Guid)TempData["user_id"];
+                            @Html.TextBoxFor(x => x.UserId, new{value = userid, hidden = true})
+                            @Html.TextBoxFor(x => x.Born, new{value = DateTime.Now, hidden = true})
+                        }
+
+                        @Html.TextBoxFor(x => x.Name, new{Placeholder="Nome", @class="form-control"})
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 text-white font-weight-bold">
+                        <p>Agora dê sentido à ela.</p>
+                        @Html.TextAreaFor(x => x.Content, new{Placeholder="Conteudo", @class="form-control"})
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                </div>
+                <button type="submit" asp-route-id="@userid" class="btn btn-outline-warning mt-2">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

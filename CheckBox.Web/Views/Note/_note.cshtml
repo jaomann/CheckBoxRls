@@ -1,0 +1,25 @@
+﻿@model Tuple<NoteViewModel, Guid>;
+
+@{
+    var nota = Model.Item1;
+    var userid = Model.Item2;
+}
+<div class="mt-1 ml-2 mb-1 container-fluid flex-wrap" style="display:block;">
+    <div class="row">
+        <div style="background-color:#000; border-top-left-radius:10px; border-top-right-radius:10px;" class="pl-1 col-md-4 text-light">
+            <h5>@Html.DisplayFor(x => nota.Name)</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rounded bg-light text-dark col-md-4 text-dark">
+            <p style="padding:2px;word-wrap:break-word;max-width:100ch;">@Html.DisplayFor(x=> nota.Content)</p>
+        </div>
+        <div style="background-color:#000; border-top-right-radius:5px;border-bottom-right-radius:10px; width:5rem; display:flex; justify-content:center; align-items:center;">
+            <a class="m-2" style="color:white;" asp-action="Delete" asp-route-id="@nota.Id" asp-route-userid="@userid"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            <a class="m-2" style="color:white;" asp-action="Editar" asp-route-id="@nota.Id" asp-route-userid="@userid"><i class="fas fa-edit"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <p class="text-muted mr-2">@Html.DisplayFor(x => nota.Born)</p>
+    </div>
+</div>
