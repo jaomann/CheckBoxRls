@@ -11,7 +11,7 @@ namespace CheckBox.DependencyInjection
         {
             services.AddScoped<INoteService, NoteService>();
             services.AddScoped<IUserService, UserService>();
-            
+
         }
         public static void AddRepositoryDependency(this IServiceCollection services)
         {
