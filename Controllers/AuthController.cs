@@ -57,6 +57,7 @@ namespace CheckBox.Web.Controllers
                 try
                 {
                     entityUser.Password = _userService.GenerateHashCode(entity.Password);
+                    entityUser.Id = new uint();
                     _userService.Create(entityUser);
                     return Ok();
                 }
