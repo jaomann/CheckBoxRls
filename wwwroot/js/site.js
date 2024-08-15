@@ -1,9 +1,9 @@
 ﻿async function registerUser() {
     const data = {
-        name: $('.userName').val(),
-        surname: $('.userSurname').val(),
-        email: $('.userEmail').val(),
-        password: $('.userPassword').val()
+        name: $('#userName').val(),
+        surname: $('#userSurname').val(),
+        email: $('#userEmail').val(),
+        password: $('#userPassword').val()
     }
     try {
         const response = await fetch('/api/auth/register', {
@@ -21,15 +21,24 @@
                 confirmButtonText: 'Valeu!'
             });
         }
+        else if (response.status != 200) {
+            var text = await response.text();
+            Swal.fire({
+                title: 'Problema no cadastro',
+                text: `${text}`,
+                icon: 'error',
+                confirmButtonText: 'Ok!'
+            });
+        }
     }catch (error) {
         Swal.fire({
             title: 'Problema no cadastro',
             text: 'Verifique seus dados',
             icon: 'error',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'Ok'
         });
     }
-}//clicar no login redireciona uma ? na rota e não joga pra esse codigo
+}
 async function login() {
     const data = {
         email: $('.userEmailLogin').val(),

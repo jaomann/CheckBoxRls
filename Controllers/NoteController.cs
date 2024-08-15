@@ -28,9 +28,13 @@ namespace CheckBox.Web.Controllers
             uint id = _session.FindUserSession().Id;
             var user = _mapper.Map<UserViewModel>(_userServices.GetbyID(id));
             ViewData["user"] = user;
-            var notes = _mapper.Map<IEnumerable<NoteViewModel>>(_noteService.GetAll().Where(x => x.UserId.Equals(user.Id)));
-            user.Notes = _mapper.Map<IEnumerable<Note>>(notes);
-            ViewBag.Notes = notes;
+            ViewBag.Notes = new List<NoteViewModel>();
+            var notes = _mapper.Map<IEnumerable<NoteViewModel>>(_noteService.GetAll().Where(x => x.UserId == user.Id ));
+            if(notes is not null)
+            {
+                user.Notes = _mapper.Map<IEnumerable<Note>>(notes);
+                ViewBag.Notes = notes;
+            }
             return View();
         }
         public IActionResult Create(uint id)
