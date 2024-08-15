@@ -11,7 +11,7 @@ namespace CheckBox.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Note> builder)
         {
-            builder.ToTable("Notes");
+            builder.ToTable("notes");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Content).IsRequired();
