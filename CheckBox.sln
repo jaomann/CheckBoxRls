@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBox.Web", "CheckBox.Web.csproj", "{1F81058E-4882-4943-BAE4-9F901CD6A8AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBox", "CheckBox.csproj", "{1F81058E-4882-4943-BAE4-9F901CD6A8AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8A4EDB2-5194-4075-82A5-8839F170CB3E}"
 	ProjectSection(SolutionItems) = preProject
