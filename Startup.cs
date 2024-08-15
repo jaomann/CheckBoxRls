@@ -37,12 +37,17 @@ namespace CheckBox.Web
             services.AddRepositoryDependency();
             services.AddAutoMapper(typeof(MapperProfile));
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-                services.AddDbContext<Context>(options =>options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), 
-                    ServerVersion.AutoDetect(Configuration.GetConnectionString("DefaultConnection")),mysqlOptions => mysqlOptions.EnableRetryOnFailure()));
-            else
-                services.AddDbContext<Context>(opt => opt.UseMySql(Configuration.GetConnectionString("cnMySql"), new MySqlServerVersion(new Version(8, 0, 11))));
+            {
+                var connectionstring = $"Server={Environment.GetEnvironmentVariable("MYSQLHOST")};Port=3306;Database={Environment.GetEnvironmentVariable("MYSQL_DATABASE")};User={Environment.GetEnvironmentVariable("MYSQLUSER")};Password={Environment.GetEnvironmentVariable("MYSQL_ROOT_PASSWORD")}";
+                services.AddDbContext<Context>(options =>options.UseMySql(connectionstring, 
+                        ServerVersion.AutoDetect(connectionstring),mysqlOptions => mysqlOptions.EnableRetryOnFailure()));
 
-            Console.WriteLine($"Connection String: {Configuration.GetConnectionString("DefaultConnection")}");
+                Console.WriteLine($"Connection String: {connectionstring}");
+            }
+            else
+            {
+                services.AddDbContext<Context>(opt => opt.UseMySql(Configuration.GetConnectionString("cnMySql"), new MySqlServerVersion(new Version(8, 0, 11))));
+            }
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
