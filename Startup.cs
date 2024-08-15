@@ -37,7 +37,7 @@ namespace CheckBox.Web
             services.AddRepositoryDependency();
             services.AddAutoMapper(typeof(MapperProfile));
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-                services.AddDbContext<Context>(opt => opt.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11))));
+                services.AddDbContext<Context>(opt => opt.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(9,0,1))));
             else
                 services.AddDbContext<Context>(opt => opt.UseMySql(Configuration.GetConnectionString("cnMySql"), new MySqlServerVersion(new Version(8, 0, 11))));
 
