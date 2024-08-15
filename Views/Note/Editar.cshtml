@@ -14,8 +14,8 @@
                         <div class="col-md-12 text-white font-weight-bold">
                             <p>Mude o nome da sua Note</p>
                             @{
-                                var userid = (Guid)TempData["user_id"];
-                                var id = (Guid)TempData["note_id"];
+                                var userid = (uint)TempData["user_id"];
+                                var id = (uint)TempData["note_id"];
                                 @Html.TextBoxFor(x => x.UserId, new{value = userid, hidden = true})
                                 @Html.TextBoxFor(x => x.Born, new{value = DateTime.Now, hidden = true})
                                 @Html.TextBoxFor(x => x.Id, new{value = id, hidden = true})
