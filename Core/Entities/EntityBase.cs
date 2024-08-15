@@ -8,6 +8,6 @@ namespace CheckBox.Core.Entities
 {
     public abstract class EntityBase
     {
-        public Guid Id { get; set; }
+        public uint Id { get; set; }
     }
 }

@@ -7,8 +7,8 @@ namespace CheckBox.Core.Contracts.repositories
     public interface IBaseRepository<T>
     {
         void Add(T entity);
-        void Delete(Guid id);
-        T GetbyID(Guid id);
+        void Delete(uint id);
+        T GetbyID(uint id);
         IEnumerable<T> GetAll();
         void Update(T entity);
     }

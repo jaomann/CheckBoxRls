@@ -25,7 +25,7 @@ namespace CheckBox.Web.Controllers
         }
         public IActionResult Index()
        {
-            Guid id = _session.FindUserSession().Id;
+            uint id = _session.FindUserSession().Id;
             var user = _mapper.Map<UserViewModel>(_userServices.GetbyID(id));
             ViewData["user"] = user;
             var notes = _mapper.Map<IEnumerable<NoteViewModel>>(_noteService.GetAll().Where(x => x.UserId.Equals(user.Id)));
@@ -33,7 +33,7 @@ namespace CheckBox.Web.Controllers
             ViewBag.Notes = notes;
             return View();
         }
-        public IActionResult Create(Guid id)
+        public IActionResult Create(uint id)
         {
             TempData["user_id"] = id;
             return View(new NoteViewModel() { UserId = id, Born = DateTime.Now});
@@ -43,17 +43,17 @@ namespace CheckBox.Web.Controllers
         {
             TempData["user_id"] = entity.UserId;
             var note = _mapper.Map<Note>(entity);
-            note.Id = new Guid();
+            note.Id = new uint();
             _noteService.Create(note);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete(Guid id, Guid userid)
+        public IActionResult Delete(uint id, uint userid)
         {
             TempData["user_id"] = userid;
             _noteService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Editar(Guid id, Guid userid)
+        public IActionResult Editar(uint id, uint userid)
         {
             TempData["user_id"] = userid;
             var note = _mapper.Map<NoteViewModel>(_noteService.GetbyID(id));
@@ -64,7 +64,7 @@ namespace CheckBox.Web.Controllers
             return View(note);
         }
         [HttpPost]
-        public IActionResult Editar(NoteViewModel entity, Guid userid)
+        public IActionResult Editar(NoteViewModel entity, uint userid)
         {
             var note = _mapper.Map<Note>(entity);
             _noteService.Update(note);

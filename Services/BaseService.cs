@@ -19,7 +19,7 @@ namespace CheckBox.Services
             _baseRepository.Add(entity);
         }
 
-        public void Delete(Guid id)
+        public void Delete(uint id)
         {
             _baseRepository.Delete(id);
         }
@@ -29,7 +29,7 @@ namespace CheckBox.Services
             return _baseRepository.GetAll();
         }
 
-        public T GetbyID(Guid id)
+        public T GetbyID(uint id)
         {
             return _baseRepository.GetbyID(id);
         }

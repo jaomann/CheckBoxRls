@@ -22,7 +22,7 @@ namespace CheckBox.Data.Repositories
             this._context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(uint id)
         {
             var entity = GetbyID(id);
             if (entity != null)
@@ -37,7 +37,7 @@ namespace CheckBox.Data.Repositories
             return _context.Set<T>();
         }
 
-        public T GetbyID(Guid id)
+        public T GetbyID(uint id)
         {
             return _context.Set<T>().FirstOrDefault( x => x.Id == id);
         }

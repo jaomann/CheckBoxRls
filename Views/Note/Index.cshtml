@@ -22,7 +22,7 @@
                 foreach (var note in notes)
                 {
 
-                    var parametros = new Tuple<NoteViewModel, Guid>(note, note.User.Id);
+                    var parametros = new Tuple<NoteViewModel, uint>(note, note.User.Id);
                     <partial name="_note" model=@parametros></partial>
                 }
             }
