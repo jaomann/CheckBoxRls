@@ -40,6 +40,8 @@ namespace CheckBox.Web
                 services.AddDbContext<Context>(opt => opt.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11))));
             else
                 services.AddDbContext<Context>(opt => opt.UseMySql(Configuration.GetConnectionString("cnMySql"), new MySqlServerVersion(new Version(8, 0, 11))));
+
+            Console.WriteLine($"Connection String: {Configuration.GetConnectionString("DefaultConnection")}");
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
