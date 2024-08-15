@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using CheckBox.Core.Contracts.entities;
 using CheckBox.Core.Entities;
+using CheckBox.Data;
 using CheckBox.Web.Helper;
 using CheckBox.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CheckBox.Web.Controllers
 {
@@ -16,12 +18,14 @@ namespace CheckBox.Web.Controllers
         private readonly IMapper _mapper;
         private readonly INoteService _noteService;
         private readonly ISession _session;
-        public NoteController(IUserService userService, IMapper mapper, INoteService noteService, ISession session)
+        private readonly Context _context;
+        public NoteController(IUserService userService, IMapper mapper, INoteService noteService, ISession session, Context context)
         {
             _mapper = mapper;
             _userServices = userService;
             _noteService = noteService;
             _session = session;
+            _context = context;
         }
         public IActionResult Index()
        {
@@ -43,18 +47,20 @@ namespace CheckBox.Web.Controllers
             return View(new NoteViewModel() { UserId = id, Born = DateTime.Now});
         }
         [HttpPost]
-        public IActionResult Create(NoteViewModel entity)
+        public async Task<IActionResult> Create(NoteViewModel entity)
         {
             TempData["user_id"] = entity.UserId;
             var note = _mapper.Map<Note>(entity);
-            note.Id = new uint();
-            _noteService.Create(note);
+            _context.Add(note);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete(uint id, uint userid)
+        public async Task<IActionResult> Delete(uint id, uint userid)
         {
             TempData["user_id"] = userid;
-            _noteService.Delete(id);
+            var user = _context.Set<Note>().FirstOrDefault(x=> x.Id == id);
+            _context.Remove(user);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Editar(uint id, uint userid)
@@ -68,10 +74,11 @@ namespace CheckBox.Web.Controllers
             return View(note);
         }
         [HttpPost]
-        public IActionResult Editar(NoteViewModel entity, uint userid)
+        public async Task<IActionResult> Editar(NoteViewModel entity, uint userid)
         {
             var note = _mapper.Map<Note>(entity);
-            _noteService.Update(note);
+            _context.Set<Note>().Update(note);
+            await _context.SaveChangesAsync();
             TempData["user_id"] = userid;
             return RedirectToAction(nameof(Index));
         }

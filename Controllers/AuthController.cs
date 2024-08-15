@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CheckBox.Core.Contracts.entities;
 using CheckBox.Core.Entities;
+using CheckBox.Data;
 using CheckBox.Web.Helper;
 using CheckBox.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace CheckBox.Web.Controllers
         private INoteService _noteService { get; set; }
         private IMapper _mapper { get; set; }
         private ISession _session { get; set; }
-        public AuthController(ISession session,IUserService userService, IMapper mapper, INoteService noteService)
+        private Context _context {  get; set; }
+        public AuthController(ISession session,IUserService userService, IMapper mapper, INoteService noteService, Context context)
         {
             _userService = userService;
             _mapper = mapper;
             _noteService = noteService;
             _session = session;
+            _context = context;
         }
         public IActionResult Index()
         {
@@ -57,7 +60,8 @@ namespace CheckBox.Web.Controllers
                 try
                 {
                     entityUser.Password = _userService.GenerateHashCode(entity.Password);
-                    _userService.Create(entityUser);
+                    _context.Set<User>().Add(entityUser);
+                    await _context.SaveChangesAsync(); 
                     return Ok();
                 }
                 catch (Exception ex)
