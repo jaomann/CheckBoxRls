@@ -1,9 +1,11 @@
 ﻿using CheckBox.Core.Contracts.repositories;
 using CheckBox.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CheckBox.Data.Repositories
 {
@@ -15,20 +17,21 @@ namespace CheckBox.Data.Repositories
             this._context = context;
         }
 
-        public void Add(T entity)
+        public async void Add(T entity)
         {
             var dbset = this._context.Set<T>();
             dbset.Add(entity);
-            this._context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(uint id)
+        public async void Delete(uint id)
         {
-            var entity = GetbyID(id);
+            var entity = await GetbyID(id);
             if (entity != null)
             {
-                _context.Remove(entity);
-                _context.SaveChanges();
+                entity.Inactive = true;
+                _context.Set<T>().Update(entity);
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -37,15 +40,15 @@ namespace CheckBox.Data.Repositories
             return _context.Set<T>();
         }
 
-        public T GetbyID(uint id)
+        public async Task<T> GetbyID(uint id)
         {
-            return _context.Set<T>().FirstOrDefault( x => x.Id == id);
+            return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Update(T entity)
+        public async void Update(T entity)
         {
             _context.Set<T>().Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

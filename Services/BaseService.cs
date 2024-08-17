@@ -4,6 +4,7 @@ using CheckBox.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CheckBox.Services
 {
@@ -29,9 +30,9 @@ namespace CheckBox.Services
             return _baseRepository.GetAll();
         }
 
-        public T GetbyID(uint id)
+        public async Task<T> GetbyID(uint id)
         {
-            return _baseRepository.GetbyID(id);
+            return await _baseRepository.GetbyID(id);
         }
         public void Update(T entity)
         {

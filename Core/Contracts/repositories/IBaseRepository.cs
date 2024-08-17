@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CheckBox.Core.Contracts.repositories
 {
@@ -8,7 +9,7 @@ namespace CheckBox.Core.Contracts.repositories
     {
         void Add(T entity);
         void Delete(uint id);
-        T GetbyID(uint id);
+        Task<T> GetbyID(uint id);
         IEnumerable<T> GetAll();
         void Update(T entity);
     }

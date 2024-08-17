@@ -62,8 +62,7 @@ namespace CheckBox.Web.Controllers
                 try
                 {
                     entityUser.Password = _userService.GenerateHashCode(entity.Password);
-                    _context.Set<User>().Add(entityUser);
-                    await _context.SaveChangesAsync(); 
+                    _userService.Create(entityUser);
                     return Ok();
                 }
                 catch (Exception ex)

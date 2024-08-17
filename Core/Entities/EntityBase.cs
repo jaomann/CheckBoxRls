@@ -9,5 +9,6 @@ namespace CheckBox.Core.Entities
     public abstract class EntityBase
     {
         public uint Id { get; set; }
+        public bool Inactive { get; set; }
     }
 }
