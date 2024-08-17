@@ -14,11 +14,9 @@
                         <div class="col-md-12 text-white font-weight-bold">
                             <p>Mude o nome da sua Note</p>
                             @{
-                                var userid = (uint)TempData["user_id"];
-                                var id = (uint)TempData["note_id"];
-                                @Html.TextBoxFor(x => x.UserId, new{value = userid, hidden = true})
+                                @Html.TextBoxFor(x => x.UserId, new { value = (uint)ViewData["user_id"], hidden = true})
                                 @Html.TextBoxFor(x => x.Born, new{value = DateTime.Now, hidden = true})
-                                @Html.TextBoxFor(x => x.Id, new{value = id, hidden = true})
+                                @Html.TextBoxFor(x => x.Id, new { value = (uint)ViewData["note_id"], hidden = true })
                             }
 
                             @Html.TextBoxFor(x => x.Name, new{Placeholder="Nome", @class="form-control"})
@@ -32,7 +30,7 @@
                             <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
                     </div>
-                    <button type="submit" asp-route-userid="@userid" class="btn btn-outline-warning mt-2">Save</button>
+                    <button type="submit" class="btn btn-outline-warning mt-2">Save</button>
                 </form>
             </div>
         </div>

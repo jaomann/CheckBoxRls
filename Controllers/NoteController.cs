@@ -29,9 +29,9 @@ namespace CheckBox.Web.Controllers
         }
         public IActionResult Index()
        {
-            uint id = _session.FindUserSession().Id;
+            uint id = uint.Parse(Request.Cookies["user_id"]);
             var user = _mapper.Map<UserViewModel>(_userServices.GetbyID(id));
-            ViewData["user"] = user;
+            ViewData["user"] = new UserViewModel(){ Id = user.Id, Name = user.Name, Surname = user.Surname };
             ViewBag.Notes = new List<NoteViewModel>();
             var notes = _mapper.Map<IEnumerable<NoteViewModel>>(_noteService.GetAll().Where(x => x.UserId == user.Id ));
             if(notes is not null)
@@ -41,45 +41,49 @@ namespace CheckBox.Web.Controllers
             }
             return View();
         }
-        public IActionResult Create(uint id)
+        public IActionResult Create()
         {
+            var id = uint.Parse(Request.Cookies["user_id"]);
             TempData["user_id"] = id;
             return View(new NoteViewModel() { UserId = id, Born = DateTime.Now});
         }
         [HttpPost]
         public async Task<IActionResult> Create(NoteViewModel entity)
         {
-            TempData["user_id"] = entity.UserId;
-            var note = _mapper.Map<Note>(entity);
-            _context.Add(note);
-            await _context.SaveChangesAsync();
+            if(entity is not null)
+            {
+                var note = _mapper.Map<Note>(entity);
+                _context.Set<Note>().Add(note);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Delete(uint id, uint userid)
+        public async Task<IActionResult> Delete(uint id)
         {
-            TempData["user_id"] = userid;
-            var user = _context.Set<Note>().FirstOrDefault(x=> x.Id == id);
-            _context.Remove(user);
-            await _context.SaveChangesAsync();
+            if(id > 0)
+            {
+                var note = _context.Set<Note>().FirstOrDefault(x=> x.Id == id);
+                _context.Set<Note>().Remove(note);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Editar(uint id, uint userid)
-        {
-            TempData["user_id"] = userid;
+        public IActionResult Editar(uint id)
+        { 
+            ViewData["user_id"] = uint.Parse(Request.Cookies["user_id"]);
+            ViewData["note_id"] = id;
             var note = _mapper.Map<NoteViewModel>(_noteService.GetbyID(id));
-            TempData["note_id"] = note.Id;
-            note.UserId = userid;
-            note.Id = id;
-            note.Born = DateTime.Now;
             return View(note);
         }
         [HttpPost]
-        public async Task<IActionResult> Editar(NoteViewModel entity, uint userid)
+        public async Task<IActionResult> Editar([Bind("Id, Name, Content, Born, UserId")] NoteViewModel entity)
         {
-            var note = _mapper.Map<Note>(entity);
-            _context.Set<Note>().Update(note);
-            await _context.SaveChangesAsync();
-            TempData["user_id"] = userid;
+            if(entity is not null)
+            {
+                var note = _mapper.Map<Note>(entity);
+                _context.Set<Note>().Update(note);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

@@ -18,8 +18,7 @@
                     <div class="col-md-12 text-white font-weight-bold">
                         <p>De um nome a sua Note.</p>
                         @{
-                            var userid = (uint)TempData["user_id"];
-                            @Html.TextBoxFor(x => x.UserId, new{value = userid, hidden = true})
+                            @Html.TextBoxFor(x => x.UserId, new{value = (uint)TempData["user_id"], hidden = true})
                             @Html.TextBoxFor(x => x.Born, new{value = DateTime.Now, hidden = true})
                         }
 
@@ -34,7 +33,7 @@
                         <span asp-validation-for="Content" class="text-danger"></span>
                     </div>
                 </div>
-                <button type="submit" asp-route-id="@userid" class="btn btn-outline-warning mt-2">Save</button>
+                <button type="submit" class="btn btn-outline-warning mt-2">Save</button>
             </form>
         </div>
     </div>

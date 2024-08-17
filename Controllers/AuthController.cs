@@ -7,6 +7,7 @@ using CheckBox.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 namespace CheckBox.Web.Controllers
@@ -42,6 +43,7 @@ namespace CheckBox.Web.Controllers
             if(valid_user is not null) { 
                 var current_user = _mapper.Map<UserViewModel>(valid_user);
                 _session.MakeSession(current_user);
+                Response.Cookies.Append("user_id", current_user.Id.ToString()) ;
                 return Ok();
             }
             return Unauthorized();
