@@ -1,6 +1,7 @@
 ﻿@model NoteViewModel;
 @{
     ViewData["Title"] = "Create";
+    Layout = "_LoggedLayout";
 }
 
 <div style="background-color:black;" class="p-5">
@@ -29,7 +30,7 @@
                 <div class="row mt-2">
                     <div class="col-md-12 text-white font-weight-bold">
                         <p>Agora dê sentido à ela.</p>
-                        @Html.TextAreaFor(x => x.Content, new{Placeholder="Conteudo", @class="form-control"})
+                            @Html.TextAreaFor(x => x.Content, new { Placeholder = "Conteudo", @class = "form-control summernote"})
                         <span asp-validation-for="Content" class="text-danger"></span>
                     </div>
                 </div>
@@ -45,3 +46,8 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+<script>
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+</script>

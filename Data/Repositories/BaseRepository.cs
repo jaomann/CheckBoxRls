@@ -1,5 +1,6 @@
 ﻿using CheckBox.Core.Contracts.repositories;
 using CheckBox.Core.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,14 @@ namespace CheckBox.Data.Repositories
             this._context = context;
         }
 
-        public async void Add(T entity)
+        public async Task Add(T entity)
         {
             var dbset = this._context.Set<T>();
             dbset.Add(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async void Delete(uint id)
+        public async Task Delete(uint id)
         {
             var entity = await GetbyID(id);
             if (entity != null)
@@ -45,7 +46,7 @@ namespace CheckBox.Data.Repositories
             return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async void Update(T entity)
+        public async Task Update(T entity)
         {
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();

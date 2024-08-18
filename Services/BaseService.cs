@@ -15,14 +15,14 @@ namespace CheckBox.Services
         {
             _baseRepository = baseRepository;
         }
-        public virtual void Create(T entity)
+        public async Task Create(T entity)
         {
-            _baseRepository.Add(entity);
+            await _baseRepository.Add(entity);
         }
 
-        public void Delete(uint id)
+        public async Task Delete(uint id)
         {
-            _baseRepository.Delete(id);
+           await _baseRepository.Delete(id);
         }
 
         public IEnumerable<T> GetAll()
@@ -34,9 +34,9 @@ namespace CheckBox.Services
         {
             return await _baseRepository.GetbyID(id);
         }
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            _baseRepository.Update(entity);
+            await _baseRepository.Update(entity);
         }
     }
 }

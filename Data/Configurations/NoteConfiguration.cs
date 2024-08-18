@@ -16,6 +16,7 @@ namespace CheckBox.Data.Configurations
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Content).IsRequired();
             builder.Property(x => x.Born).IsRequired();
+            builder.Property(x => x.Inactive);
             builder.HasOne(x => x.User).WithMany(x => x.Notes).HasForeignKey(x => x.UserId);
             
         }

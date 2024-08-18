@@ -38,11 +38,6 @@ namespace CheckBox.Services
             return null;
             
         }
-        public override void Create(User entity)
-        {
-            _userRepository.Add(entity);
-        }
-
         public async Task<bool> Exists(string email)
         {
             return await _userRepository.Exists(email);

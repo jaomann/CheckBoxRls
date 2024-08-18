@@ -16,7 +16,8 @@ namespace CheckBox.Data.Configurations
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Surname).IsRequired();
             builder.Property(x => x.Email).IsRequired();
-           
+            builder.Property(x => x.Inactive);
+
         }
     }
 }

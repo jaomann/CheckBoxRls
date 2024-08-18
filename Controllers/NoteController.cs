@@ -27,10 +27,10 @@ namespace CheckBox.Web.Controllers
             _session = session;
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             uint id = uint.Parse(Request.Cookies["user_id"]);
-            var user = _mapper.Map<UserViewModel>(_userServices.GetbyID(id));
+            var user = _mapper.Map<UserViewModel>(await _userServices.GetbyID(id));
             ViewData["user"] = new UserViewModel(){ Id = user.Id, Name = user.Name, Surname = user.Surname };
             ViewBag.Notes = new List<NoteViewModel>();
             var notes = _mapper.Map<IEnumerable<NoteViewModel>>(_noteService.GetAll().Where(x => x.UserId == user.Id ));
@@ -49,18 +49,18 @@ namespace CheckBox.Web.Controllers
             return View(new NoteViewModel() { UserId = id, Born = DateTime.Now});
         }
         [HttpPost]
-        public IActionResult Create([Bind("Id, Name, Content, Born, UserId")] NoteViewModel entity)
+        public async Task<IActionResult> Create([Bind("Id, Name, Content, Born, UserId")] NoteViewModel entity)
         {
             if(entity is not null)
             {
                 var note = _mapper.Map<Note>(entity);
-                _noteService.Create(note);
+                await _noteService.Create(note);
             }
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete(uint id)
+        public async Task<IActionResult> Delete(uint id)
         {
-            _noteService.Delete(id);
+            await _noteService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Editar(uint id)
@@ -71,12 +71,12 @@ namespace CheckBox.Web.Controllers
             return View(note);
         }
         [HttpPost]
-        public IActionResult Editar([Bind("Id, Name, Content, Born, UserId")] NoteViewModel entity)
+        public async Task<IActionResult> Editar([Bind("Id, Name, Content, Born, UserId")] NoteViewModel entity)
         {
             if(entity is not null)
             {
                 var note = _mapper.Map<Note>(entity);
-                _noteService.Update(note);
+                await _noteService.Update(note);
             }
             return RedirectToAction(nameof(Index));
         }

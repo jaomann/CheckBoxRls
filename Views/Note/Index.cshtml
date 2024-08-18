@@ -17,13 +17,11 @@
             <h2 class="m-2 text-white-50">Suas notes</h2>
         </div>
         @{
-            if (notes.Any())
+            if (notes.Any(x=> x.Inactive is false))
             {
-                foreach (var note in notes)
+                foreach (var note in notes.Where(x=> x.Inactive is false ))
                 {
-
-                    var parametros = new Tuple<NoteViewModel, uint>(note, note.User.Id);
-                    <partial name="_note" model=@parametros></partial>
+                    <partial name="_note" model=@note></partial>
                 }
             }
             else

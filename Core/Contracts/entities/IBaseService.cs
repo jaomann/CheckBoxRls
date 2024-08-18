@@ -7,11 +7,11 @@ namespace CheckBox.Core.Contracts.entities
 {
     public interface IBaseService<T>
     {
-        void Create(T entity);
-        void Delete(uint id);
+        Task Create(T entity);
+        Task Delete(uint id);
         Task<T> GetbyID(uint id);
         IEnumerable<T> GetAll();
-        void Update(T entity);
+        Task Update(T entity);
 
     }
 }

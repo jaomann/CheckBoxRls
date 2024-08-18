@@ -21,6 +21,7 @@ namespace CheckBox.Web.Models
         [Required(ErrorMessage = "Campo Obrigatório")]
         public DateTime Born { get; set; }
         public uint UserId { get; set; }
+        public bool Inactive { get; set; }
         public User User { get; set; }
 
 

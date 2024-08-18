@@ -7,10 +7,10 @@ namespace CheckBox.Core.Contracts.repositories
 {
     public interface IBaseRepository<T>
     {
-        void Add(T entity);
-        void Delete(uint id);
+        Task Add(T entity);
+        Task Delete(uint id);
         Task<T> GetbyID(uint id);
         IEnumerable<T> GetAll();
-        void Update(T entity);
+        Task Update(T entity);
     }
 }
