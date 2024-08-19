@@ -19,6 +19,10 @@
                 text: 'Usuário cadastrado com sucesso',
                 icon: 'success',
                 confirmButtonText: 'Valeu!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    login(data.email, data.password);
+                }
             });
         }
         else if (response.status != 200) {
@@ -39,10 +43,18 @@
         });
     }
 }
-async function login() {
-    const data = {
-        email: $('.userEmailLogin').val(),
-        password: $('.userPasswordLogin').val()
+async function login(email, password) {
+    let data = {}
+    if (email != null && password != null) {
+        data = {
+            email: email,
+            password: password
+        }
+    } else {
+        data = {
+            email: $('.userEmailLogin').val(),
+            password: $('.userPasswordLogin').val()
+        }
     }
     try {
         const response = await fetch('/api/auth/login', {
