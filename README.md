@@ -5,9 +5,9 @@
 ## Funcionalidades
 
 - **Criação de Anotações**: Crie, edite e organize suas anotações com facilidade.
-- **Listas de Tarefas**: Marque itens como concluídos com um simples clique.
-- **Categorias**: Organize suas anotações em categorias para facilitar a navegação.
-- **Busca Rápida**: Encontre rapidamente anotações usando palavras-chave.
+- **Listas de Tarefas**: Marque itens como concluídos com um simples clique [Desenvolvimento].
+- **Categorias**: Organize suas anotações em categorias para facilitar a navegação [Desenvolvimento].
+- **Busca Rápida**: Encontre rapidamente anotações usando palavras-chave [Desenvolvimento].
 - **Sincronização**: Acesse suas anotações em qualquer dispositivo, a qualquer hora.
 
 ### Imagens
