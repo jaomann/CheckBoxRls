@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Your notes";
+    ViewData["Title"] = "Suas notas";
     var notes = (IEnumerable<NoteViewModel>)ViewBag.Notes;
     var user = (UserViewModel)ViewData["user"];
     Layout = "_LoggedLayout";
@@ -12,9 +12,9 @@
         </div>
         <a class="pt-2 btn btn-outline-danger text-sm-center" href="/api/auth/logout">Logout</a>
     </header>
-    <main class="container-fluid" style="background-color:#202020;" class="rounded">
+    <main class="container-fluid rounded" style="background-color:#202020;">
         <div class="row d-flex m-1 justify-content-initial">
-            <h2 class="m-2 text-white-50">Suas notes</h2>
+            <h2 class="m-2 text-white-50">Suas notas</h2>
         </div>
         @{
             if (notes.Any(x=> x.Inactive is false))
@@ -29,12 +29,12 @@
                 <div class="row text-center text-light mt-2">
                     <div class="col-md-12 mt-3 mb-5">
                             <img style="height:20vh;" src="~/imgs/nerd.gif" alt="empty">
-                            <h5>Sem anotações por aqui...</h5>
+                            <h5>Sem notas por aqui...</h5>
                     </div>
                 </div>
             }
         }
-        <div class="row m-2">
+        <div class="row">
             <a class="pt-2 btn btn-outline-warning m-1" asp-action="Create">Create</a>
         </div>
     </main>

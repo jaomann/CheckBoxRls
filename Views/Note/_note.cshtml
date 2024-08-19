@@ -1,5 +1,5 @@
 ﻿@model NoteViewModel;
-<div class="mt-1 ml-2 mb-1 container-fluid flex-wrap" style="display:block;">
+<div class="m-2">
     <div class="row">
         <div style="background-color:#000; border-top-left-radius:10px; border-top-right-radius:10px;display:flex; justify-content:space-between" class="pl-1 col-md-4 text-light">
             <h5 class="m-1">@Html.DisplayFor(x => Model.Name)</h5>
@@ -10,10 +10,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="rounded bg-light text-dark col-md-4 text-dark">
+        <div style="overflow:auto;" class="rounded bg-light text-dark col-md-4 text-dark">
             <p style="padding:2px;" class="text-wrap">@Html.Raw(Model.Content)</p>
             <div class="row justify-content-end">
-                <small class="text-muted mr-2 font-italic">@Html.DisplayFor(x => Model.Born)</small>
+                <small class="text-muted mr-2 font-italic">@Html.DisplayFor(x => Model.BornFormatted)</small>
             </div>
         </div>
     </div>

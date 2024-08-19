@@ -1,24 +1,8 @@
 ﻿@model NoteViewModel;
 @{
-    ViewData["Title"] = "Create";
-    Layout = null;
+    ViewData["Title"] = "Criando nota";
+    Layout = "_LayoutCRUD";
 }
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        .note-toolbar {
-            background: linear-gradient(#FFE46F,#FFA643);
-            border-radius: 4px 4px 0 0;
-        }
-    </style>
-</head>
-<body style="background-color:#000">
 <div class="container mt-5 p-2 rounded">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -28,18 +12,19 @@
                 </div>
                 <div class="card-body text-white">
                     <form method="post" asp-action="Create" id="formCadastro">
-                        <div class="mb-3">
                             @{
                                 @Html.TextBoxFor(x => x.UserId, new { value = (uint)TempData["user_id"], hidden = true })
                                 @Html.TextBoxFor(x => x.Born, new { value = DateTime.Now, hidden = true })
                             }
+                        <div class="mb-3">
                             <label for="nome" class="form-label">Titulo</label>
-                            <input asp-for="Name" type="text" class="form-control" id="titulo" placeholder="Digite o titulo">
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", id = "titulo", placeholder = "Digite o titulo" })
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label for="descricao" class="form-label">Conteudo</label>
-                            <textarea asp-for="Content" id="summernote" name="descricao" style="background: linear-gradient(#FFE470,#FFA644)"></textarea>
+                            @Html.TextAreaFor(x => x.Content, new { @class = "form-control", id = "summernote", name = "descricao" })
+                            <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-between">
                             <button type="button" style="border-radius: 15px;" onclick="location.href='/Note/index'" class="btn btn-warning text-white"><i class="fa fa-arrow-left"></i></button>
@@ -54,26 +39,3 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.js"></script>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-<script>
-    $(document).ready(function () {
-        $('#summernote').summernote({
-            height: 200,
-            placeholder: 'De sentido para ela',
-        });
-        $('#formCadastro').on('submit', function () {
-            var markup = $('#summernote').summernote('code');
-            $('textarea[name="descricao"]').val(markup);
-        });
-    });
-</script>
-</body>
-</html>

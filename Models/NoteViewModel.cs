@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace CheckBox.Web.Models
 {
@@ -20,6 +21,7 @@ namespace CheckBox.Web.Models
         [DisplayFormat(DataFormatString="{0:D}")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public DateTime Born { get; set; }
+        public string BornFormatted => Born.ToString("dddd, dd MMMM yyyy", new CultureInfo("pt-BR"));
         public uint UserId { get; set; }
         public bool Inactive { get; set; }
         public User User { get; set; }
